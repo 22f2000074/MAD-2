@@ -152,4 +152,226 @@ console.log(abc); // Output: 10
 // let and const do get hoisted, but they stay in a "temporal dead zone" until the code executes the declaration.
 // That’s why accessing b before its declaration causes an error.
 
+// -------------------- Data Types --------------------
+
+// Primitive Data Types
+// Number
+// BigInt
+// Symbol
+// Boolean
+// undefined
+// null
+// String
+
+// Object (non-primitive)
+
+console.log(typeof("ABCD")); // typeof operator is used to know the data type.
+
+// Operator precedence
+
+// Exponentiation > Multiplication = Division = Remainder (goes left to right in case of same precedence) > 
+// Addition = Subtraction
+// All mathematical operators go from left to right
+// but the exponential operator goes from right to left
+
+console.log(2**3**0); // Output is 2
+console.log('2'+2); // Outpput is 22
+console.log(2+2+'2'); // Output is 42
+
+// true = 1 and false = 0
+console.log(2+2+true); // Output is 5
+console.log(2+'2'+true); // Output is 22true
+// any interaction between a number and undefined gives NaN
+console.log(2*undefined);
+console.log(2*null);// null treated as 0
+console.log('2'+undefined); // Output is '2undefined'
+
+// any other operation (* / % - **) other than + in case of string will try to convert into a number
+console.log(2*'8'); // Output is 16
+// if in case the string cannot be converted to a number then NaN is returned
+
+// adding a n to a number changes its data type to big int
+let number_1=455666645644564n;
+console.log(typeof(number_1)); // returns type bigInt
+
+// --------------------  Conditional Statements --------------------
+let my_age = 18;
+if (my_age>=18){
+    console.log("You are an adult.")
+}
+else{
+    console.log("Grow Up Kid");
+}
+// use else if for other conditions
+// and > &&
+// or > ||
+// not > !
+
+// --------------------  Loops --------------------
+
+// traditional way
+for (let i=0; i<=5; i++){
+    console.log(i);
+}
+
+let j=0;
+while (j<=5) {
+    console.log(j);
+    j++;
+}
+console.log(j);// Output is 6 because first increment  occurs and then value is checked
+
+// --------------------  Arrays and Objects --------------------
+
+// Declaring an array (can hold multiple data types)
+let arr = [1, 2, 3, "hello"];
+console.log(arr);
+
+// Declaring an object (key-value pairs)
+let object1 = {
+    pizza: "Farmhouse",
+    burger: "Cheeseburger",
+    pasta: "Red Sauce"
+}
+console.log(object1);
+
+// Arrays are similar to lists in Python, and objects are similar to dictionaries in Python.
+
+// Accessing items in an array
+// 'in' gives indexes (keys)
+// 'of' gives values
+for (let x in arr) {
+    console.log(x); // Index (0, 1, 2, 3)
+    console.log(arr[x]); // Corresponding value
+}
+for (let x of arr) {
+    console.log(x); // Value (1, 2, 3, "hello")
+}
+
+// If an object is declared using 'const', its reference cannot be reassigned,
+// but its internal properties can be modified.
+const obj2 = {
+    pizza: "Farmhouse",
+    burger: "Cheeseburger",
+    pasta: "Red Sauce"
+}
+console.log(obj2);
+
+// Adding a new key-value pair to an object
+obj2.delivery = "free";
+console.log(obj2);
+
+// Iterating over an object's keys and values
+for (let x in obj2) {
+    console.log(x + ":" + obj2[x]); // Correct way to access property values
+}
+
+// 'of' cannot be used with objects as they are not iterable
+
+// -------------------- Objects with Methods --------------------
+
+// An object can have functions, referred to as methods.
+const dog = {
+    name: "Tommy",
+    speaks: function () {
+        console.log("Dog barks");
+    }
+}
+console.log(dog.name);   // Accessing properties using dot notation
+console.log(dog["name"]); // Accessing properties using bracket notation
+dog.speaks(); // Calling the method
+
+// 'this' inside a method refers to the object itself
+const dog2 = {
+    name: "Tommy",
+    speaks: function () {
+        console.log(this.name + " barks"); // Output: "Tommy barks"
+        console.log(dog2.name + " barks"); // Output: "Tommy barks"
+    }
+}
+dog2.speaks();
+
+// -------------------- Using 'this' Dynamically --------------------
+
+// 'this' can dynamically refer to different objects
+function bark() {
+    console.log(this.name + " barks.");
+}
+const d1 = {
+    name: "Tommy",
+    bark: bark
+}
+const d2 = {
+    name: "Bruno",
+    bark: bark
+}
+d1.bark(); // Output: "Tommy barks"
+d2.bark(); // Output: "Bruno barks"
+
+// -------------------- Arrow Functions --------------------
+
+// Arrow functions provide a concise way to define functions
+let add4 = (a, b) => {
+    console.log(a + b);
+}
+add4(50, 60); // Output: 110
+
+// Arrow functions do NOT create their own 'this' and refer to 'this' from their enclosing scope
+obj5 = {
+    fruit: "Apple",
+    price: 50,
+    say() {
+        console.log(`${this.fruit} is priced at ${this.price}.`);
+    },
+    say_arrow: () => {
+        console.log(`${this.fruit} is priced at ${this.price}.`);
+    }
+}
+obj5.say(); // Output: "Apple is priced at 50."
+obj5.say_arrow(); // Output: "undefined is priced at undefined."
+
+// 'this' in arrow functions depends on the outer execution context (not the object itself)
+this.fruit = "Orange";
+this.price = 50;
+obj5.say_arrow(); // Output: "Orange is priced at 50."
+
+// -------------------- call, bind, and apply --------------------
+
+// These methods allow changing the context ('this') of function calls
+
+obj6 = {
+    fruit: "Kiwi",
+    price: 150
+}
+
+// Using 'call' to invoke obj5's method with obj6 as 'this'
+obj5.say.call(obj6); // Output: "Kiwi is priced at 150."
+
+// Function using 'this'
+function add5() {
+    console.log(this.x, this.y);
+}
+
+ob = {
+    x: 50,
+    y: 70
+}
+
+// 'call' allows passing an object as 'this'
+add5.call(ob); // Output: 50 70
+
+// Using 'call' with additional arguments
+function add6(s, h) {
+    console.log(this.x + this.y + s + h);
+}
+
+// 'call' - Pass arguments separately
+add6.call(ob, 10, 20); // Output: 150
+
+// 'apply' - Pass arguments as an array
+add6.apply(ob, [10, 20]); // Output: 150
+
+// 'bind' - Returns a new function with 'this' set
+let binded = add6.bind(ob, 10, 20);
+binded(); // Output: 150
 
