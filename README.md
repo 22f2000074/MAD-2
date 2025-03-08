@@ -18,8 +18,8 @@ Each week's folder contains structured notes, code examples, and hands-on projec
 ✅ Variables (`let`, `const`, `var`) & Scope
 ✅ Functions & Arrow Functions
 ✅ Hoisting & Scope
-✅ Arrays & Objects
-✅ Call, Bind, and Apply Methods
+✅ Loops, Arrays & Objects
+✅ Call, Bind & Apply Methods
 
 
 ## 🚀 How to Use This Repository?
@@ -31,7 +31,7 @@ Each week's folder contains structured notes, code examples, and hands-on projec
    ```
 2. Navigate to the relevant week:
    ```bash
-   cd "Week 1 - JavaScript Basics"
+   cd "Week 1"
    ```
 3. Open the `.js` files and explore the concepts.
 
